@@ -107,18 +107,18 @@ public:
 	bool operator==(const Queue<T> &rhs) const {
 		if (_size != rhs._size)
 			return false;
-		bool iguales = true;
+		bool same = true;
 		Node *p1 = _first;
 		Node *p2 = rhs._first;
-		while ((p1 != nullptr) && (p2 != nullptr) && iguales) {
+		while ((p1 != nullptr) && (p2 != nullptr) && same) {
 			if (p1->_elem != p2->_elem)
-				iguales = false;
+				same = false;
 			else {
 				p1 = p1->_next;
 				p2 = p2->_next;
 			}
 		}
-		return iguales;
+		return same;
 	}
 
     /** Inequality operator. O(n) */
