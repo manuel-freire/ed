@@ -15,20 +15,20 @@
  */
 class ADTException {
 public:
-	ADTException() {}
-	ADTException(const std::string &msg) : _msg(msg) {}
+    ADTException() {}
+    ADTException(const std::string &msg) : _msg(msg) {}
 
-	const std::string msg() const { return _msg; }
+    const std::string msg() const { return _msg; }
 
-	friend std::ostream &operator<<(std::ostream &out, const ADTException &e);
+    friend std::ostream &operator<<(std::ostream &out, const ADTException &e);
 
 protected:
-	std::string _msg;
+    std::string _msg;
 };
 
 inline std::ostream &operator<<(std::ostream &out, const ADTException &e) {
-	out << e._msg;
-	return out;
+    out << e._msg;
+    return out;
 }
 
 /*
