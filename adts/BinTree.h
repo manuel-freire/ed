@@ -25,7 +25,7 @@
  * - BinaryTree constructor: generator
  * - left, right: observers, return left or right children of a tree (also trees!)
  * - elem: observer, returns element at root
- * - isEmpty: observer, returning true IFF a tree is empty
+ * - empty: observer, returning true IFF a tree is empty
  */
 
 template <typename T>
@@ -59,7 +59,7 @@ public:
      * Partial observer, O(1)
      */
     const T &elem() const {
-        if (isEmpty()) {
+        if (empty()) {
             throw EmptyTreeException();
         }
         return _root->_elem;
@@ -70,7 +70,7 @@ public:
      * Partial observer, O(1)
      */
     BinTree left() const {
-        if (isEmpty()) {
+        if (empty()) {
             throw EmptyTreeException();
         }
         // note that this is using a copy ctor
@@ -82,7 +82,7 @@ public:
      * Partial observer, O(1)
      */
     BinTree right() const {
-        if (isEmpty()) {
+        if (empty()) {
             throw EmptyTreeException();
         }
         // note that this is using a copy ctor
@@ -93,7 +93,7 @@ public:
      * Returns true IFF tree is empty. 
      * Observer, O(1) 
      */
-    bool isEmpty() const {
+    bool empty() const {
         return _root == nullptr;
     }
 
@@ -121,7 +121,7 @@ public:
 
     List<T>* levels() const {
         List<T>* ret = new List<T>();
-        if (!isEmpty()){
+        if (!empty()){
             Queue<Node*> pending;
             pending.push_back(_root);
 

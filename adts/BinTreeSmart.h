@@ -24,7 +24,7 @@
  * - BinaryTreeSmart constructor: generator
  * - left, right: observers, return left or right children of a tree (also trees!)
  * - elem: observer, returns element at root
- * - isEmpty: observer, returning true IFF a tree is empty
+ * - empty: observer, returning true IFF a tree is empty
  */
 
 template <typename T>
@@ -48,7 +48,7 @@ public:
      * Partial observer, O(1)
      */
     const T &elem() const {
-        if (isEmpty()) {
+        if (empty()) {
             throw EmptyTreeException();
         }
         return _root->_elem;
@@ -59,7 +59,7 @@ public:
      * Partial observer, O(1)
     */
     BinTreeSmart left() const {
-        if (isEmpty()) {
+        if (empty()) {
             throw EmptyTreeException();
         }
         return BinTreeSmart(_root->_left);
@@ -70,7 +70,7 @@ public:
      * Partial observer, O(1)
     */
     BinTreeSmart right() const {
-        if (isEmpty()) {
+        if (empty()) {
             throw EmptyTreeException();
         }
         return BinTreeSmart(_root->_right);
@@ -80,7 +80,7 @@ public:
      * Returns true IFF tree is empty. 
      * Observer, O(1) 
      */
-    bool isEmpty() const {
+    bool empty() const {
         return _root == nullptr;
     }
 
@@ -108,7 +108,7 @@ public:
 
     List<T>* levels() const {
         List<T>* ret = new List<T>();
-        if (!isEmpty()){
+        if (!empty()){
             Queue<Link> pending;
             pending.push_back(_root);
 
