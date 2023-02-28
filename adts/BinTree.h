@@ -254,7 +254,7 @@ protected:
     public:
         Node() : _left(nullptr), _right(nullptr), _refs(0) {}
         Node(Node *left, const T &elem, Node *right) :
-                elem(elem), _left(left), _right(right), _refs(0) {
+                _elem(elem), _left(left), _right(right), _refs(0) {
             if (left != nullptr)
                 left->addRef();
             if (right != nullptr)
@@ -262,9 +262,9 @@ protected:
         }
 
         void addRef() { assert(_refs >= 0); _refs++; }
-        void remRef() { assert(_refs > 0); _refs--; }
+        void rmRef() { assert(_refs > 0); _refs--; }
 
-        T elem;
+        T _elem;
         Node *_left;
         Node *_right;
 
