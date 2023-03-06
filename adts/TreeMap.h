@@ -1,5 +1,5 @@
 /**
- * Map TAD using binary trees
+ * Map ADT using binary trees
  * (c) Marco Antonio Gómez Martín, 2012
  * Modified by Ignacio Fábregas, 2022
  * Modified & translated by Manuel Freire, 2023
@@ -17,7 +17,8 @@
  * 
  * Requires keys to support a comparison operator: a function object that accepts
  *    two values of the key type, and which can answer whether 1st < 2nd.
- *    The < operator is used if present for the key type T. * Las operaciones son:
+ *    The < operator is used if present for the key type T. 
+ * Operations are:
  *    - TreeMap constructor: generator
  *    - insert(key, value): generator, adds a new (key, value) pair to the tree.
  *          If the key was already present, replaces its value with the new one.
@@ -51,8 +52,8 @@ private:
 
 public:
 
-    /** Constructor; returns an empty TreeMap */
-	TreeMap() : _root(nullptr) { _size =0;}
+    /** Constructor; returns an empty TreeMap. O(1) */
+	TreeMap() : _root(nullptr) { _size =0; }
 
     /** Destructor; frees nodes in O(n) */
 	~TreeMap() {
@@ -246,7 +247,7 @@ public:
     }
 
     /** 
-     * Returns an iterator just outside the set, reachable by an iterator 
+     * Returns an iterator just outside the map, reachable by an iterator 
      * that starts at begin()
      * O(1) 
      */
@@ -284,7 +285,7 @@ public:
 
     /**
      * An iterator that allows walking through the whole map. 
-     * Does not allow changing structure
+     * Does not allow any changes
      */
 	class ConstIterator {
 	public:
@@ -388,7 +389,7 @@ public:
     }
 
     /** 
-     * Returns a constant iterator just outside the set, reachable by an iterator 
+     * Returns a constant iterator just outside the map, reachable by an iterator 
      * that starts at cbegin()
      * O(1) 
      */    
@@ -422,7 +423,7 @@ public:
 
 
 	// //
-	// MÉTODOS DE "FONTANERÍA" DE C++ QUE HACEN VERSÁTIL A LA CLASE
+    // C++ Boilerplate code to make class more useful
 	// //
 
     /** Copy ctor. O(n) */
@@ -455,7 +456,7 @@ protected:
 private:
 
     /**
-     * Elimina todos los nodos de una estructura arbórea que comienza con el puntero n.
+     * Removes all nodes from a tree structure that starts at n.
      * O(n)
      */
     static void free(Node *n) {

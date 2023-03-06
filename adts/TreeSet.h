@@ -369,7 +369,7 @@ public:
     }
 
     // //
-    // BOILERPLATE C++ CODE
+    // C++ Boilerplate code to make class more useful
     // //
 
     /** Copy ctor. O(n) */
