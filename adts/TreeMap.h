@@ -36,31 +36,31 @@ private:
     /**
      * Internal node class
      */
-	class Node {
-	public:
-		Node() : _left(nullptr), _right(nullptr) {}
-		Node(const K &key, const V &value) 
-			: _key(key), _value(value), _left(nullptr), _right(nullptr) {}
-		Node(Node *left, const K &key, const V &value, Node *right)
-			: _key(key), _value(value), _left(left), _right(right) {}
+    class Node {
+    public:
+        Node() : _left(nullptr), _right(nullptr) {}
+        Node(const K &key, const V &value) 
+            : _key(key), _value(value), _left(nullptr), _right(nullptr) {}
+        Node(Node *left, const K &key, const V &value, Node *right)
+            : _key(key), _value(value), _left(left), _right(right) {}
 
-		K _key;
-		V _value;
-		Node* _left;
-		Node* _right;
-	};
+        K _key;
+        V _value;
+        Node* _left;
+        Node* _right;
+    };
 
 public:
 
     /** Constructor; returns an empty TreeMap. O(1) */
-	TreeMap() : _root(nullptr) { _size =0; }
+    TreeMap() : _root(nullptr) { _size =0; }
 
     /** Destructor; frees nodes in O(n) */
-	~TreeMap() {
-		free();
+    ~TreeMap() {
+        free();
         _root = nullptr;
         _size = 0;
-	}
+    }
 
     /** 
      * Adds a new key, value pair to the set. If key
@@ -68,48 +68,49 @@ public:
      * No effect if element already present.
      * generator, O(log n) 
      */
-	void insert(const K &key, const V &value) {
+    void insert(const K &key, const V &value) {
         _root = insertAux(key, value, _root);
         // note that insertAux increases _size accordingly
-	}
+    }
 
     /**
      * Removes a key, value pair from the map. 
      * No effect if key not there in the first place. 
      * mutator, O(log n)
      */
-	void erase(const K &key) {
+    void erase(const K &key) {
         _root = eraseAux(_root, key);
         // note that eraseAux decreases _size accordingly
-	}
+    }
 
-	/**
-	 * Returns value associated to a key. 
+    /**
+     * Returns value associated to a key. 
      * Partial - if key not present, throws exception. Use contains() if unsure
      * observer, O(log n)
-	 */
-	const V &at(const K &key) const {
-		Node *p = findAux(_root, key);
-		if (p == nullptr)
-			throw BadKeyException();
-		return p->_value;
-	}
+     */
+    const V &at(const K &key) const {
+        Node *p = findAux(_root, key);
+        if (p == nullptr) {
+            throw BadKeyException();
+        }
+        return p->_value;
+    }
 
     /** 
      * Returns true IFF element in set
      * observer, O(log n)
      */
-	bool contains(const K &key) const {
-		return findAux(_root, key) != nullptr;
-	}
+    bool contains(const K &key) const {
+        return findAux(_root, key) != nullptr;
+    }
 
     /** 
      * Returns true IFF no elements in set
      * observer, O(1)
      */
     bool empty() const {
-		return _root == nullptr;
-	}
+        return _root == nullptr;
+    }
 
     /** 
      * Returns number of keys in map. 
@@ -119,18 +120,18 @@ public:
         return _size;
     }
 
-	/**
-	 * Overloads the [] operator, to access (and possibly modify) a value given its key.
-	 * If the key is not present, inserts a new (default) value for that key.
-	 */
-	V &operator[](const K &key) {
+    /**
+     * Overloads the [] operator, to access (and possibly modify) a value given its key.
+     * If the key is not present, inserts a new (default) value for that key.
+     */
+    V &operator[](const K &key) {
         bool inserted;
-		Node* ret = findOrInsert(_root, key, inserted); 
-		if (inserted) { 
+        Node* ret = findOrInsert(_root, key, inserted); 
+        if (inserted) { 
             ++_size;
         }
-		return ret->_value;
-	}
+        return ret->_value;
+    }
 
     /** 
      * Pretty-printing of map. Only for debugging. 
@@ -174,16 +175,16 @@ public:
         }
 
         /** O(1) */
-		const K &key() const {
-			if (_current == nullptr) throw InvalidAccessException();
-			return _current->_key;
-		}
+        const K &key() const {
+            if (_current == nullptr) throw InvalidAccessException();
+            return _current->_key;
+        }
 
         /** O(1) */
-		V &value() {
-			if (_current == nullptr) throw InvalidAccessException();
-			return _current->_value;
-		}
+        V &value() {
+            if (_current == nullptr) throw InvalidAccessException();
+            return _current->_value;
+        }
 
         /** O(1) */
         bool operator==(const Iterator &other) const {
@@ -260,11 +261,11 @@ public:
      * or end() if not found
      * O(log n)
      */
-	Iterator find(const K &key) {
+    Iterator find(const K &key) {
         Stack<Node*> ancestors;
         Node *p = _root;
-		while (p != nullptr && (_cless(p->_key, key) || _cless(key, p->_key))) {
-			if (_cless(key, p->_key)) {
+        while (p != nullptr && (_cless(p->_key, key) || _cless(key, p->_key))) {
+            if (_cless(key, p->_key)) {
                 ancestors.push(p);
                 p = p->_left;
             } else {
@@ -287,8 +288,8 @@ public:
      * An iterator that allows walking through the whole map. 
      * Does not allow any changes
      */
-	class ConstIterator {
-	public:
+    class ConstIterator {
+    public:
         ConstIterator() : _current(nullptr) {}
 
         /** Converts an Iterator to a ConstIterator  */
@@ -316,16 +317,16 @@ public:
         }
 
         /** O(1) */
-		const K &key() const {
-			if (_current == nullptr) throw InvalidAccessException();
-			return _current->_key;
-		}
+        const K &key() const {
+            if (_current == nullptr) throw InvalidAccessException();
+            return _current->_key;
+        }
 
         /** O(1) */
-		const V &value() const {
-			if (_current == nullptr) throw InvalidAccessException();
-			return _current->_value;
-		}
+        const V &value() const {
+            if (_current == nullptr) throw InvalidAccessException();
+            return _current->_value;
+        }
 
         /** O(1) */
         bool operator==(const ConstIterator &other) const {
@@ -402,11 +403,11 @@ public:
      * or cend() if not found
      * O(log n)
      */
-	ConstIterator find(const K &key) const {
+    ConstIterator find(const K &key) const {
         Stack<Node*> ancestors;
         Node *p = _root;
-		while (p != nullptr && (_cless(p->_key, key) || _cless(key, p->_key))) {
-			if (_cless(key, p->_key)) {
+        while (p != nullptr && (_cless(p->_key, key) || _cless(key, p->_key))) {
+            if (_cless(key, p->_key)) {
                 ancestors.push(p);
                 p = p->_left;
             } else {
@@ -422,24 +423,24 @@ public:
 
 
 
-	// //
+    // //
     // C++ Boilerplate code to make class more useful
-	// //
+    // //
 
     /** Copy ctor. O(n) */
-	TreeMap(const TreeMap<K, V, Comparator> &other) : _root(nullptr) {
-		copy(other);
-	}
+    TreeMap(const TreeMap<K, V, Comparator> &other) : _root(nullptr) {
+        copy(other);
+    }
 
 
     /** Copy assignment operator. O(n) */
-	TreeMap<K, V, Comparator> &operator=(const TreeMap<K, V, Comparator> &other) {
-		if (this != &other) {
-			free();
-			copy(other);
-		}
-		return *this;
-	}
+    TreeMap<K, V, Comparator> &operator=(const TreeMap<K, V, Comparator> &other) {
+        if (this != &other) {
+            free();
+            copy(other);
+        }
+        return *this;
+    }
 
 protected:
 
@@ -447,11 +448,11 @@ protected:
         free(_root);
     }
 
-	void copy(const TreeMap &other) {
+    void copy(const TreeMap &other) {
         _root = copyAux(other._root);
         _size = other._size;
         _cless = other._cless;
-	}
+    }
 
 private:
 
@@ -484,10 +485,10 @@ private:
      * otherwise, returns p.
      * O(log n)
      */
-	Node *insertAux(const K &key, const V &value, Node *p) {
+    Node *insertAux(const K &key, const V &value, Node *p) {
         if (p == nullptr) {
             _size ++;
-			return new Node(key, value);
+            return new Node(key, value);
         } else if (_cless(key, _root->_key)) { // key < root->_key
             p->_left = insertAux(key, value, _root->_left);
             return p;
@@ -495,36 +496,36 @@ private:
             p->_right = insertAux(key, value, _root->_right);
             return p;
         } else { // key == p->key
-			return p;
+            return p;
         }
-	}
+    }
 
     /**
      * Finds an element in the structure
      * Returns a pointer to the element, or nullptr if not found
      * O(log n)
      */
-	Node *findAux(Node *p, const K &key) const {
-		if (p == nullptr) {
-			return nullptr;
+    Node *findAux(Node *p, const K &key) const {
+        if (p == nullptr) {
+            return nullptr;
         } else if (_cless(key, _root->_key)) { // key < root->_key
             return findAux(_root->_left, key);
         } else if (_cless(_root->_key, key)) { // key < root->_key
             return findAux(_root->_right, key);
         } else { // key == p->key
-			return p;
+            return p;
         }
-	}
+    }
 
 
     /**
-	 * Finds or inserts a key in the map. 
+     * Finds or inserts a key in the map. 
      * If the key is new, inserts a default value.
      * If the key was already present, nothing is inserted.
      * Returns a node with the key (a new one if absent, the old one otherwise)
      * Used in operator[]. Sets inserted to true iff new node returned
      * O(log n)
-	 */
+     */
     Node *findOrInsert(Node* &root, const K &key, bool& inserted) {
         if (root == nullptr) { // Key not present: return new Node*
             inserted = true;
@@ -547,8 +548,8 @@ private:
      * O(log n)
      */
     Node* eraseAux(Node *p, const K &key) {
-		if (p == nullptr) {
-			return nullptr;
+        if (p == nullptr) {
+            return nullptr;
         } else if (_cless(key, p->_key)) { // key < p->key
             p->_left = eraseAux(p->_left, key);
             return p;
@@ -630,7 +631,7 @@ private:
     /**
      * Root node
      */
-	Node *_root;
+    Node *_root;
 
     /**
      * Comparator
