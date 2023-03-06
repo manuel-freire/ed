@@ -231,7 +231,6 @@ public:
     // CONSTANT ITERATOR
     // //
 
-
     /**
      * An iterator that allows walking through the whole tree. 
      * Does not allow changing structure
@@ -250,7 +249,7 @@ public:
         void next() {
             if (_current == nullptr)
                 throw InvalidAccessException();
-            // If _Si hay hijo derecho, saltamos al primero en inorden del hijo derecho
+            // If right child, jump its smallest child (first in order)
             if (_current->_right != nullptr)
                 _current = firstInOrder(_current->_right);
             else {
@@ -264,20 +263,24 @@ public:
             }
         }
 
+        /** O(1) */
         const T &elem() const {
             if (_current == nullptr)
                 throw InvalidAccessException();
             return _current->_elem;
         }
 
+        /** O(1) */
         const T& operator*() const {
             return elem();
         }
 
+        /** O(1) */
         bool operator==(const ConstIterator &other) const {
             return _current == other._current;
         }
 
+        /** O(1) */
         bool operator!=(const ConstIterator &other) const {
             return !(this->operator==(other));
         }
@@ -298,8 +301,8 @@ public:
     protected:
         friend class TreeSet;
 
-        ConstIterator(Node *act) {
-            this->_current = firstInOrder(act);
+        ConstIterator(Node *current) {
+            this->_current = firstInOrder(current);
         }
 
         /**
@@ -343,10 +346,10 @@ public:
     }
 
     /**
-    * Returns a constant iterator to the node with element e,
-    * or cend() if not found
-    * O(log n)
-    */
+     * Returns a constant iterator to the node with element e,
+     * or cend() if not found
+     * O(log n)
+     */
     ConstIterator find(const T &e) const {
         Stack<Node*> ancestors;
         Node *p = _root;
@@ -354,8 +357,9 @@ public:
             if (p->_elem > e) {
                 ancestors.push(p);
                 p = p->_left;
-            } else
+            } else {
                 p = p->_right;
+            }
         }
         ConstIterator ret;
         ret._current = p;
@@ -384,7 +388,6 @@ public:
 
 protected:
 
-
     void free() {
         free(_root);
     }
@@ -398,7 +401,7 @@ private:
     static const int TREE_INDENTATION = 4;
 
     /**
-     * Elimina todos los nodos de una estructura arbórea que comienza con el puntero n.
+     * Deletes the structure recursively.
      * O(n)
      */
     static void free(Node *n) {
@@ -411,11 +414,12 @@ private:
 
     /**
      * Copies the structure recursively.
+     * O(n)
      */
-    static Node* copyAux(Node *raiz) {
-        if (raiz == nullptr)
+    static Node* copyAux(Node *root) {
+        if (root == nullptr)
             return nullptr;
-        return new Node(copyAux(raiz->_left), raiz->_elem, copyAux(raiz->_right));
+        return new Node(copyAux(root->_left), root->_elem, copyAux(root->_right));
     }
 
     /**
@@ -444,14 +448,15 @@ private:
      * O(log n)
      */
     static Node* findAux(Node *p, const T &elem) {
-        if (p == nullptr)
+        if (p == nullptr) {
             return nullptr;
-        if (p->_elem == elem)
+        } else if (p->_elem == elem) {
             return p;
-        if (elem < p->_elem)
+        } else if (elem < p->_elem) {
             return findAux(p->_left, elem);
-        else
+        } else {
             return findAux(p->_right, elem);
+        }
     }
 
     /**
@@ -505,14 +510,14 @@ private:
         /*
          * Find smallest & its immediate parent
          */
-        Node *padre = nullptr;
+        Node *parent = nullptr;
         Node *aux = p->_right;
         while (aux->_left != nullptr) {
-            padre = aux;
+            parent = aux;
             aux = aux->_left;
         }
-        if (padre != nullptr) { // parent found, switch
-            padre->_left = aux->_right;
+        if (parent != nullptr) { // parent found, switch
+            parent->_left = aux->_right;
             aux->_left = p->_left;
             aux->_right = p->_right;
         } else { // no parent - was already root
