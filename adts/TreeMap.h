@@ -489,11 +489,11 @@ private:
         if (p == nullptr) {
             _size ++;
             return new Node(key, value);
-        } else if (_cless(key, _root->_key)) { // key < root->_key
-            p->_left = insertAux(key, value, _root->_left);
+        } else if (_cless(key, p->_key)) { // key < root->_key
+            p->_left = insertAux(key, value, p->_left);
             return p;
-        } else if (_cless(_root->_key, key)) { // key < root->_key
-            p->_right = insertAux(key, value, _root->_right);
+        } else if (_cless(p->_key, key)) { // key < root->_key
+            p->_right = insertAux(key, value, p->_right);
             return p;
         } else { // key == p->key
             return p;
@@ -508,10 +508,10 @@ private:
     Node *findAux(Node *p, const K &key) const {
         if (p == nullptr) {
             return nullptr;
-        } else if (_cless(key, _root->_key)) { // key < root->_key
-            return findAux(_root->_left, key);
-        } else if (_cless(_root->_key, key)) { // key < root->_key
-            return findAux(_root->_right, key);
+        } else if (_cless(key, p->_key)) { // key < root->_key
+            return findAux(p->_left, key);
+        } else if (_cless(p->_key, key)) { // key < root->_key
+            return findAux(p->_right, key);
         } else { // key == p->key
             return p;
         }
