@@ -116,7 +116,7 @@ public:
     /**
      * Returns value associated to a key. 
      * Partial - if key not present, throws exception. Use contains() if unsure
-     * observer, O(log n)
+     * observer, O(1)
      */
     const V &at(const K &key) const {
         // Locate bin index
@@ -131,7 +131,7 @@ public:
     
     /** 
      * Returns true IFF element in set
-     * observer, O(log n)
+     * observer, O(1)
      */
     bool contains(const K &key) const {
         // Locate bin index
