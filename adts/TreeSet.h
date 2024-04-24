@@ -24,8 +24,7 @@ template <class T>
 class TreeSet {
 private:
     /**
-     Clase nodo que almacena internamente el dato
-     y los punteros al hijo izquierdo y al hijo derecho.
+     Internal node class, storing values & pointers to left and right children
      */
     class Node {
     public:
