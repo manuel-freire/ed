@@ -41,6 +41,18 @@ public:
         _tail = nth_node(other.size()-1);
     }
 
+    /** Assignment constructor. O(n) */
+    ListLinkedSingle<T> &operator=(const ListLinkedSingle<T> &other) {
+        if (this != &other) {
+            delete_list(_head->_next);
+            _head->_next = copy_nodes(other._head->_next);
+            if ( ! other.empty()) {
+              _tail = nth_node(other.size()-1);
+            }
+        }
+        return *this;
+    }
+
     /** O(1)*/
     void push_front(const T &_elem) {
         Node *new_node = new Node { _elem, _head->_next };
