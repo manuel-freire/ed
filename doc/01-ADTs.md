@@ -1,6 +1,6 @@
 % C1-ADTs
 % (manuel.freire@fdi.ucm.es)
-% 2023.01.24
+% 2025.01.21
 
 ## Goal
 
@@ -145,7 +145,7 @@ int main() {
     return 0; 
 }
 ~~~
-\normal
+\normalsize
 
 # Operations
 
@@ -209,7 +209,7 @@ This allows us to test the code early, but it fails in choosing the operations t
 
 # ADTs and modules
 
-Most programming languages include the concept of \emph{module} - a set of related data and operations that can be seen as a unit and which are accessed though a well defined interface. The concept of module includes ADTs, so in general ADTs should be implemented as modules.
+Most programming languages include the concept of \emph{module} - a set of related data and operations that can be seen as a unit and which are accessed through a well defined interface. The concept of module includes ADTs, so in general ADTs should be implemented as modules.
 
 In C++, this involves the \emph{declaration} of a class in a .h header file (e.g. \emph{date.h}), and its \emph{implementation} in an associated .cpp file (e.g. \emph{date.cpp}):
 
@@ -228,7 +228,7 @@ In C++, this involves the \emph{declaration} of a class in a .h header file (e.g
 #endif
 ~~~
 
-Yes, it is 2023 and we still do this. Yes, C++ is, language-wise, quite dated.
+Yes, it is 2025 and we still do this. Yes, C++ is, language-wise, quite dated.
 
 # ADTs and data structures
 
@@ -474,7 +474,7 @@ And, more mundane,
 
 # Plato's Cavern
 
-![ADT implementer's vs User's view](img/adt-schema)
+![ADT implementer's vs User's view](img/adt-schema.png)
 
 # Partiality
 
@@ -719,7 +719,7 @@ In C++, dynamic memory is
   struct Big { char stuff[MANY]; };
 
   char *dynamic = new char[MANY]; // 1GB dynamic memory
-  Big *b = new Big();             // also 1 GB dynamic memory
+  Big b = new Big();              // also 1 GB dynamic memory
 
   // ... use memory ...
 
@@ -847,11 +847,11 @@ ffffffffff600000-ffffffffff601000 --xp 00000000 00:00 0 [vsyscall]
 ~~~
 \normalsize
 
-Output of `cat /proc/742076/maps` on teacher's computer running a simple "hellow world" C++ program that waits for input:
+Output of `cat /proc/742076/maps` on teacher's computer running a simple "hello world" C++ program that waits for input:
 
 - 40 memory regions, including program, heap, stack, and runtime libraries. All are marked `p` for *private*
 - only 2 regions marked `x` for *executable*: our program (`hello`), and `vdso`\footnote{see https://lwn.net/Articles/615809/ for a deep dive into vdso}
-- on this system, stack starts with only 132KB - but can grow to up to 8MB if needed. The total program footprint is 1.5 MB.
+- on this system, the stack starts with only 132KB - but can grow to up to 8MB if needed. The total program footprint is 1.5 MB.
 
 # Avoiding errors with dynamic memory
  
@@ -859,7 +859,7 @@ Output of `cat /proc/742076/maps` on teacher's computer running a simple "hellow
 
     + dynamic memory is only *better* if it prevents you from running out of stack memory. Otherwise, *avoid it*. It is *not* "more elegant".
 
-- Initialize pointers right when you declare them (**RAII**\footnote{Resource Allocation Is Initialization}). 
+- Initialize pointers right when you declare them (**RAII**\footnote{Resource Allocation/Aquisition Is Initialization}). 
 
     + if this is impossible, at least assign `nullptr`\footnote{\emph{nullptr} is C++11 for \emph{NULL}, and has certain advantages. Use it in new code.}, so that attempts to use the pointer will produce an error.
 
@@ -870,7 +870,7 @@ Output of `cat /proc/742076/maps` on teacher's computer running a simple "hellow
 ~~~{.cpp}
 
 Set *c = new Set(); // assigns value in the same declaration    
-delete c;    // delete checks nullptr or similar before freeing
+delete c;    // delete checks nullptr before freeing
 c = nullptr; // set to nullptr after delete to avoid multiple frees
 ~~~
 
@@ -936,7 +936,7 @@ Example constructors and destructors for a `Map` class:
           Map m2(320, 200);        // constructor (m2)
       }   // destructor (m2)
       delete m0;                   // destroy m0
-      m0 = NULL;
+      m0 = nullptr;
 
       return 0;
   }  

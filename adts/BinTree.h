@@ -162,7 +162,7 @@ public:
     // //
 
     /** Copy ctor. */
-    BinTree(const BinTree<T> &other) : _root(NULL) {
+    BinTree(const BinTree<T> &other) : _root(nullptr) {
         copy(other);
     }
 
