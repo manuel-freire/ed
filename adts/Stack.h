@@ -134,7 +134,7 @@ protected:
 
     void free() {
         delete []_data;
-        _data = NULL;
+        _data = nullptr;
     }
 
     void copy(const Stack &other) {
