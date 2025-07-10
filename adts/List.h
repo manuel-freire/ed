@@ -52,6 +52,17 @@ public:
         free();
     }
 
+    // moves the 1st element of this list to the end of the other list; Uses pointers instead of copying the element
+    void push_back_first(List<T> &other) {
+        if (empty())
+            throw EmptyListException("Cannot push_back_first. The list is empty.");
+            _last = insertElem(_elem, _last, nullptr);
+        if (_first == nullptr) {
+            _first = _last;    // list was empty; 1st is also last element
+        }
+
+    }
+
     /** Adds an an element at the front. O(1) */
     void push_front(const T &_elem) {
         _first = insertElem(_elem, nullptr, _first);
