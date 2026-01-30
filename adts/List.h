@@ -106,9 +106,9 @@ public:
     void pop_front() {
         if (empty())
             throw EmptyListException("Cannot pop. The list is empty.");
-        Node *aBorrar = _first;
+        Node *toErase = _first;
         _first = _first->_next;
-        deleteElem(aBorrar);
+        deleteElem(toErase);
         if (_first == nullptr) // if empty, must also update last
             _last = nullptr;
     }
@@ -120,9 +120,9 @@ public:
     void pop_back() {
         if (empty())
             throw EmptyListException("Cannot pop. The list is empty.");
-        Node *aBorrar = _last;
+        Node *toErase = _last;
         _last = _last->_prev;
-        deleteElem(aBorrar);
+        deleteElem(toErase);
         if (_last == nullptr) //si la lista queda vacía, modificamos también _first
             _first = nullptr;
     }
