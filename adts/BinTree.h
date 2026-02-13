@@ -37,8 +37,8 @@ public:
     }
 
     /** Constructor; returns a tree from left + element + right */
-    BinTree(const BinTree &iz, const T &elem, const BinTree &dr) :
-            _root(new Node(iz._root, elem, dr._root)) {
+    BinTree(const BinTree &left, const T &elem, const BinTree &right) :
+            _root(new Node(left._root, elem, right._root)) {
         _root->addRef();
     }
 

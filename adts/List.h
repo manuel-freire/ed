@@ -198,18 +198,17 @@ public:
         }
 
     protected:
-        /** Para que pueda construir objetos del tipo iterador */
+        /** Allows surrounding List to create these iterators */
         friend class List;
 
         ConstIterator(Node *_current) : _current(_current) {}
 
-        /** Puntero al nodo actual del recorrido */
+        /** Current node being iterated */
         Node *_current;
     };
 
     /**
-     * Clase interna que implementa un iterador sobre la lista que permite recorrer la lista e incluso
-     * alterar el valor de sus elementos.
+     * Internal class that implements a non-const iterator over the list
      */
     class Iterator {
     public:
@@ -260,7 +259,7 @@ public:
         }
 
     protected:
-        /** Allows lists to create iterators */
+        /** Allows surrounding List to create these iterators */
         friend class List;
 
         Iterator(Node *_current) : _current(_current) {}
